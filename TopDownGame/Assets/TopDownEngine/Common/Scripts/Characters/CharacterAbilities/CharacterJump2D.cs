@@ -37,6 +37,14 @@ namespace MoreMountains.TopDownEngine
 		protected int _jumpingAnimationParameter;
 		protected int _hitTheGroundAnimationParameter;
 
+				//내가 선언
+		Rigidbody2D rigid;
+		Vector3 dirVec;
+		GameObject scanObject;
+		public float Speed;
+		float h;
+		float v;
+		bool isHorizonMove;
 		/// <summary>
 		/// On init we grab our components
 		/// </summary>
@@ -53,6 +61,12 @@ namespace MoreMountains.TopDownEngine
 		/// </summary>
 		protected override void HandleInput()
 		{
+			        h = Input.GetAxisRaw("Horizontal");
+        v = Input.GetAxisRaw("Vertical");
+        bool hDown = Input.GetButtonDown("Horizontal");
+        bool vDown = Input.GetButtonDown("Vertical");
+        bool hUp = Input.GetButtonUp("Horizontal");
+        bool vUp= Input.GetButtonUp("Vertical");
 			base.HandleInput();
 			// if movement is prevented, or if the character is dead/frozen/can't move, we exit and do nothing
 			if (!AbilityAuthorized
@@ -68,7 +82,57 @@ namespace MoreMountains.TopDownEngine
 			{
 				_buttonReleased = true;
 			}
+			   if (hDown)
+        {
+            isHorizonMove = true;
+            if(h == 1)
+            {
+                dirVec = Vector3.right;
+            }
+            else if(h == -1)
+            {
+                dirVec = Vector3.left;
+            }
+        }
+        else if (vDown)
+        {
+            isHorizonMove = false;
+            if (v == 1)
+            {
+                dirVec = Vector3.up;
+            }
+            else if (v == -1)
+            {
+                dirVec = Vector3.down;
+            }
+        }
+        else if(hUp || vUp) 
+        {
+            isHorizonMove = h != 0;
+            if(!(h == 0 && v == 0))
+            {
+                dirVec = isHorizonMove ? new Vector3(h, 0, 0) : new Vector3(0, v, 0);
+            }
+        }
+        if (Input.GetButtonDown("Jump") && scanObject != null)
+        {
+            Debug.Log("안녕? 나는 "+ scanObject.name + "야.");
+        }
 		}
+void FixedUpdate()
+{
+        //Ray
+        Debug.DrawRay(rigid.position, dirVec * 0.7f, new Color(0, 1, 0));
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("Object")); 
+        if(rayHit.collider != null)
+        {
+            scanObject = rayHit.collider.gameObject;
+        }
+        else
+        {
+            scanObject = null;
+        }
+}
 
 		/// <summary>
 		/// On process ability, we stop the jump if needed

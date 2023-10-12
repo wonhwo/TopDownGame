@@ -19,6 +19,7 @@ public class player : MonoBehaviour
     bool isHorizonMove;
     bool isJumping = false;
     bool isWalking = false;
+    bool isEventing = false;
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -29,7 +30,7 @@ public class player : MonoBehaviour
         h = gamemanager.isAction ?  0 :Input.GetAxisRaw("Horizontal");
         v = gamemanager.isAction ? 0 : Input.GetAxisRaw("Vertical");
         Animations();
-        if (Input.GetButtonDown("Player1_Jump") && scanObject != null)
+        if (Input.GetButtonDown("Player1_Jump") && scanObject != null && isEventing)
         {
             gamemanager.Action(scanObject);
         }
@@ -42,12 +43,18 @@ public class player : MonoBehaviour
         if (collision.gameObject.tag == "Object")
         {
             scanObject = collision.gameObject;
-
-            
+            isEventing = true;
         }
         else
         {
             scanObject = null;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Object")
+        {
+            isEventing = false;
         }
     }
     private void Animations()

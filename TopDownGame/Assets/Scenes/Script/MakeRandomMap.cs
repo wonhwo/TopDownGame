@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 // 방을 만들고 방을 기준으로 복도를 만들고 벽을 만드는 클래스
 public class MakeRandomMap : MonoBehaviour
 {
@@ -45,12 +46,12 @@ public class MakeRandomMap : MonoBehaviour
 
         //MakeCorridors();
 
-        //MakeWall();
+        MakeWall();
         //타일 깔기
-        //spreadTilemap.SpreadFloorTilemap(floor);
-        //spreadTilemap.SpreadWallTilemap(wall);
+        spreadTilemap.SpreadFloorTilemap(floor);
+        spreadTilemap.SpreadWallTilemap(wall);
 
-        //player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
+        player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
         //entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
 
 
@@ -64,6 +65,8 @@ public class MakeRandomMap : MonoBehaviour
             floor.UnionWith(positions);
             //플로어에 좌표 추가 UnionWith 합집합
         }
+        
+        
     }
     //방의 넓이 정하는 함수(취소 길이 와 최대 길이를 기준으로)
     //공간의 중심 찾기
@@ -72,7 +75,7 @@ public class MakeRandomMap : MonoBehaviour
         HashSet<Vector2Int> positions = new HashSet<Vector2Int>();
         int width = Random.Range(minRoomWidth, space.width + 1 - distance * 2);
         int height = Random.Range(minRoomHeight, space.height + 1 - distance * 2);
-        for(int i =space.Center().x - width / 2; i <= space.Center().y + height / 2; i++)
+        for(int i =space.Center().x - width / 2; i <= space.Center().x + width / 2; i++)
         {
             for(int j=space.Center().y - height / 2; j < space.Center().y + height / 2; j++)
             {
@@ -121,7 +124,7 @@ public class MakeRandomMap : MonoBehaviour
         floor.Add(current);
         while(current.x != next.x)
         {
-            if(current.x != next.x)
+            if(current.x < next.x)
             {
                 current.x += 1;
                 floor.Add(current);
@@ -134,7 +137,7 @@ public class MakeRandomMap : MonoBehaviour
         }
         while (current.y != next.y)
         {
-            if (current.y != next.y)
+            if (current.y < next.y)
             {
                 current.y += 1;
                 floor.Add(current);

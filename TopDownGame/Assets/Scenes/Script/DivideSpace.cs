@@ -40,7 +40,7 @@ public class DivideSpace : MonoBehaviour
             DivideRoom(spaces[0]);
             DivideRoom(spaces[1]);
         }
-        else if (space.height >= minHeight * 2 && space.width >= minWidth * 2)
+        else if (space.height >= minHeight * 2 && space.width < minWidth * 2)
         {
             RectangleSpace[] spaces = DivideHorizontal(space);
             DivideRoom(spaces[0]);
@@ -73,7 +73,7 @@ public class DivideSpace : MonoBehaviour
         RectangleSpace newSpace1 = new RectangleSpace(space.leftDown, newSpace1Width, space.height);
 
         int newSpace2Width = space.width - newSpace1Width;
-        Vector2Int newSpace2LeftDown = new Vector2Int(space.leftDown.x + newSpace1Width, space.height);
+        Vector2Int newSpace2LeftDown = new Vector2Int(space.leftDown.x + newSpace1Width, space.leftDown.y);
         RectangleSpace newSpace2 = new RectangleSpace(newSpace2LeftDown, newSpace2Width, space.height);
 
         RectangleSpace[] spaces = new RectangleSpace[2];

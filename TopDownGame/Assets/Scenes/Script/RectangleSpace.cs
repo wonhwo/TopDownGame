@@ -20,6 +20,6 @@ public class RectangleSpace : MonoBehaviour
     //사각형의 중간 좌표를 나타내는 함수
     public Vector2Int Center()
     {
-        return new Vector2Int(((leftDown.x *2)+ width -1)/2,((leftDown.y * 2) + height - 1) / 2);
+        return new Vector2Int(((leftDown.x *2)+ width -1)/2,(((leftDown.y * 2) + height - 1) / 2));
     }
 }

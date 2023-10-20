@@ -21,9 +21,13 @@ public class MakeRandomMap : MonoBehaviour
     //플레이어
     [SerializeField]
     private GameObject player;
+    //[SerializeField]
+    //private GameObject entrance;
     [SerializeField]
-    private GameObject entrance;
-    
+    private GameObject portalPrefab; // 포탈 프리팹을 저장할 변수
+    [SerializeField]
+    private GameObject Portal; //부모 포탈
+
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
     private void Start()
@@ -64,10 +68,23 @@ public class MakeRandomMap : MonoBehaviour
             HashSet<Vector2Int> positions = MakeRandomRectangleRoom(space);
             floor.UnionWith(positions);
             //플로어에 좌표 추가 UnionWith 합집합
+            MakePortal(space);
+
         }
         
-        
     }
+    int portalNumber = 1; // 첫 번째 포탈
+    private void MakePortal(RectangleSpace space)
+    {
+        Vector3 portalPosition = new Vector3(space.Center().x, space.Center().y, 0);
+        
+        GameObject portal = Instantiate(portalPrefab, portalPosition, Quaternion.identity);
+        portal.name = "Portal" + portalNumber;
+        portal.transform.SetParent(Portal.transform, true);
+        portal.SetActive(true);
+        portalNumber++;
+    }
+
     //방의 넓이 정하는 함수(취소 길이 와 최대 길이를 기준으로)
     //공간의 중심 찾기
     private HashSet<Vector2Int> MakeRandomRectangleRoom(RectangleSpace space)
@@ -84,71 +101,7 @@ public class MakeRandomMap : MonoBehaviour
         }
         return positions;
     }
-    //복도를 만드는 함수
-    private void MakeCorridors()
-    {
-        List<Vector2Int> tempCenters = new List<Vector2Int>();
-        foreach(var space in divideSpace.spaceList)
-        {
-            tempCenters.Add(new Vector2Int(space.Center().x, space.Center().y));
-        }
-        Vector2Int nextCenter;
-        Vector2Int currentCenter = tempCenters[0];
-        tempCenters.Remove(currentCenter);
-        while(tempCenters.Count != 0)
-        {
-            nextCenter = ChooseShortestNextCorridor(tempCenters, currentCenter);
-            MakeOneCorridor(currentCenter, nextCenter);
-            currentCenter = nextCenter;
-            tempCenters.Remove(currentCenter);
-        }
-    }
 
-    private Vector2Int ChooseShortestNextCorridor(List<Vector2Int> tempCenters,Vector2Int previousCenter)
-    {
-        int n = 0;
-        float minLength = float.MaxValue;
-        for(int i = 0; i < tempCenters.Count; i++)
-        {
-            if (Vector2.Distance(previousCenter, tempCenters[i]) < minLength){
-                minLength = Vector2.Distance(previousCenter, tempCenters[i]);
-                n = i;
-            }
-        }
-        return tempCenters[n];
-    }
-    private void MakeOneCorridor(Vector2Int currentCenter, Vector2Int nextCenter)
-    {
-        Vector2Int current = new Vector2Int(currentCenter.x, currentCenter.y);
-        Vector2Int next = new Vector2Int(nextCenter.x, nextCenter.y);
-        floor.Add(current);
-        while(current.x != next.x)
-        {
-            if(current.x < next.x)
-            {
-                current.x += 1;
-                floor.Add(current);
-            }
-            else
-            {
-                current.x -= 1;
-                floor.Add(current);
-            }
-        }
-        while (current.y != next.y)
-        {
-            if (current.y < next.y)
-            {
-                current.y += 1;
-                floor.Add(current);
-            }
-            else
-            {
-                current.y -= 1;
-                floor.Add(current);
-            }
-        }
-    }
     //벽을 만드는 함수
     private void MakeWall()
     {

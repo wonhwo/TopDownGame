@@ -57,7 +57,7 @@ public class SpreadTilemap : MonoBehaviour
                 // 0번 인덱스의 타일은 floor에, 나머지는 ObjectTiles에 저장
                 if (Array.IndexOf(floorTiles, selectedTile) != 0)
                 {
-                    AddTileToObjedctTiles(position, selectedTile);
+                    AddTileToObjedctTiles((position), selectedTile);
                 }
             }
         }

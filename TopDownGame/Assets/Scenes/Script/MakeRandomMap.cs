@@ -26,7 +26,11 @@ public class MakeRandomMap : MonoBehaviour
     [SerializeField]
     private GameObject portalPrefab; // 포탈 프리팹을 저장할 변수
     [SerializeField]
+    private GameObject outPortalPrefab; // 포탈 프리팹을 저장할 변수
+    [SerializeField]
     private GameObject Portal; //부모 포탈
+    [SerializeField]
+    private GameObject OutPortal; //부모 포탈
 
     private HashSet<Vector2Int> floor;
     private HashSet<Vector2Int> wall;
@@ -72,17 +76,46 @@ public class MakeRandomMap : MonoBehaviour
 
         }
         
+
     }
     int portalNumber = 1; // 첫 번째 포탈
     private void MakePortal(RectangleSpace space)
     {
-        Vector3 portalPosition = new Vector3(space.Center().x, space.Center().y, 0);
-        
+        Vector3 portalPosition = new Vector3(space.Center().x+5, space.Center().y, 0);
+        Vector3 outPortalPosition = new Vector3(space.Center().x-5, space.Center().y, 0);
+
         GameObject portal = Instantiate(portalPrefab, portalPosition, Quaternion.identity);
+        GameObject outPortal = Instantiate(outPortalPrefab, outPortalPosition, Quaternion.identity);
         portal.name = "Portal" + portalNumber;
+        outPortal.name = "OutPortal" + portalNumber;
         portal.transform.SetParent(Portal.transform, true);
+        outPortal.transform.SetParent(OutPortal.transform, true);
         portal.SetActive(true);
+        outPortal.SetActive(true);
         portalNumber++;
+
+    }
+    public GameObject[] FindPortalObjects()
+    {
+        GameObject portal = GameObject.Find("Portal"); // "Portal" 오브젝트를 찾음
+        if (portal == null)
+        {
+            Debug.LogError("Portal 오브젝트를 찾을 수 없습니다.");
+            return new GameObject[0]; // 빈 배열 반환
+        }
+
+        Transform[] portalTransforms = portal.GetComponentsInChildren<Transform>();
+        List<GameObject> portalObjectsList = new List<GameObject>();
+
+        foreach (Transform portalTransform in portalTransforms)
+        {
+            if (portalTransform != portal.transform) // "Portal" 오브젝트 자체가 아닌 경우
+            {
+                portalObjectsList.Add(portalTransform.gameObject);
+            }
+        }
+        Debug.Log(portalObjectsList);
+        return portalObjectsList.ToArray(); // List를 배열로 변환하여 반환
     }
 
     //방의 넓이 정하는 함수(취소 길이 와 최대 길이를 기준으로)

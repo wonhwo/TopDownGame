@@ -10,6 +10,9 @@ TagManager:
   - World
   - NoMask
   - Object
+  - Portal
+  - OutPortal
+  - PortalName
   layers:
   - Default
   - TransparentFX

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414738, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -170,6 +170,37 @@ MonoBehaviour:
   minHeight: 30
   totalSpace: {fileID: 0}
   spaceList: []
+--- !u!1 &172118407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 172118408}
+  m_Layer: 0
+  m_Name: OutPortal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &172118408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172118407}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.9566422, y: 5.3324757, z: -0.087193534}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1965689703}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &340807194
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +325,10 @@ MonoBehaviour:
   player: {fileID: 1036930789}
   portalPrefab: {fileID: 1895916276701234, guid: 5faa40bed14bc1d49bd6d25dbfbfdd4f,
     type: 3}
+  outPortalPrefab: {fileID: 1490758154976072, guid: 51f4065837bb0e2499d797db72b760db,
+    type: 3}
   Portal: {fileID: 1379967367}
+  OutPortal: {fileID: 172118407}
 --- !u!1 &449643199
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +390,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 513594113035964220, guid: c134e509e3c9d384a8e6016f45db5b5e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5012718030535381555, guid: c134e509e3c9d384a8e6016f45db5b5e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -408,6 +447,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5064602989022840613, guid: c134e509e3c9d384a8e6016f45db5b5e,
         type: 3}
+      propertyPath: makeRandom
+      value: 
+      objectReference: {fileID: 412653022}
+    - target: {fileID: 5064602989022840613, guid: c134e509e3c9d384a8e6016f45db5b5e,
+        type: 3}
+      propertyPath: divideSpace
+      value: 
+      objectReference: {fileID: 110783982}
+    - target: {fileID: 5064602989022840613, guid: c134e509e3c9d384a8e6016f45db5b5e,
+        type: 3}
       propertyPath: gamemanager
       value: 
       objectReference: {fileID: 449643200}
@@ -420,6 +469,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832635856546117116, guid: c134e509e3c9d384a8e6016f45db5b5e,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -780,6 +834,51 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &890522529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 890522531}
+  - component: {fileID: 890522530}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &890522530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890522529}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88f5aed616a7084ca0f2e24e5b15a7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  childObject: {fileID: 0}
+--- !u!4 &890522531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890522529}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 75.76884, y: 22.176754, z: 0.98824036}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1031270277
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,12 +1074,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379967367}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 59.186058, y: 47.788128, z: -0.16116995}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 35.536427, y: 27.91018, z: -0.44308013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1965689703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1472587734
 GameObject:
@@ -1238,6 +1337,39 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1965689702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1965689703}
+  m_Layer: 0
+  m_Name: PortalBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1965689703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965689702}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 23.649632, y: 19.877949, z: 0.28191018}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1379967368}
+  - {fileID: 172118408}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2061210504
 GameObject:
   m_ObjectHideFlags: 0
@@ -1418,4 +1550,5 @@ SceneRoots:
   - {fileID: 508575140}
   - {fileID: 629614301}
   - {fileID: 754639186}
-  - {fileID: 1379967368}
+  - {fileID: 1965689703}
+  - {fileID: 890522531}

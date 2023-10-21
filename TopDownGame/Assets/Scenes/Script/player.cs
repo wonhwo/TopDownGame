@@ -26,10 +26,12 @@ public class player : MonoBehaviour
     bool isJumping = false;
     bool isWalking = false;
     bool isEventing = false;
+    private Animator lefthandAnimator;
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         animation = GetComponent<Animator>();
+        lefthandAnimator = transform.Find("LeftHand").GetComponent<Animator>();
     }
     void Update()
     {
@@ -105,6 +107,10 @@ public class player : MonoBehaviour
             // "Jump" �ִϸ��̼� ���ߵ��� ����
             animation.ResetTrigger("Jumping");
             isJumping = false;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            lefthandAnimator.SetTrigger("Slash1");
         }
     }
     private void FixedUpdate()

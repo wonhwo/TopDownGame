@@ -49,6 +49,7 @@ public class DivideSpace : MonoBehaviour
         else
         {
             spaceList.Add(space);
+            
         }
     }
     //공간을 가로로 자르는 함수

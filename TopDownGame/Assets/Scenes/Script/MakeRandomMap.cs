@@ -81,8 +81,8 @@ public class MakeRandomMap : MonoBehaviour
     int portalNumber = 1; // Ã¹ ¹øÂ° Æ÷Å»
     private void MakePortal(RectangleSpace space)
     {
-        Vector3 portalPosition = new Vector3(space.Center().x+5, space.Center().y, 0);
-        Vector3 outPortalPosition = new Vector3(space.Center().x-5, space.Center().y, 0);
+        Vector3 portalPosition = new Vector3(space.Center().x+6, space.Center().y, 0);
+        Vector3 outPortalPosition = new Vector3(space.Center().x-6, space.Center().y, 0);
 
         GameObject portal = Instantiate(portalPrefab, portalPosition, Quaternion.identity);
         GameObject outPortal = Instantiate(outPortalPrefab, outPortalPosition, Quaternion.identity);

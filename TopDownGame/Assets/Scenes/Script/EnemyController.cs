@@ -19,6 +19,9 @@ public class EnemyController : MonoBehaviour
     Transform targetTransform = null;
     Vector3 endPosition;
     float currenAngle =0;
+    private bool isHurt = false;
+    private Vector3 knockbackDirection; // ≥ÀπÈ πÊ«‚
+    public float knockbackForce = 1f; // ≥ÀπÈ »˚
 
     private void Start()
     {
@@ -31,6 +34,11 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         Debug.DrawLine(Rigidbody2D.position, endPosition, Color.red);
+        if (isHurt)
+        {
+            // ≥ÀπÈ πÊ«‚¿∏∑Œ ¿Ãµø
+            Rigidbody2D.velocity = knockbackDirection * knockbackForce;
+        }
     }
     public IEnumerator WanderRoutine()
     {
@@ -78,6 +86,7 @@ public class EnemyController : MonoBehaviour
         }
         animator.SetBool("isWalking", false);
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && follwPlayer)

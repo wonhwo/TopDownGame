@@ -21,8 +21,8 @@ public class MakeRandomMap : MonoBehaviour
     //플레이어
     [SerializeField]
     private GameObject player;
-    //[SerializeField]
-    //private GameObject entrance;
+    [SerializeField]
+    private GameObject entrance;
     [SerializeField]
     private GameObject portalPrefab; // 포탈 프리팹을 저장할 변수
     [SerializeField]
@@ -60,7 +60,7 @@ public class MakeRandomMap : MonoBehaviour
         spreadTilemap.SpreadWallTilemap(wall);
 
         player.transform.position = (Vector2)divideSpace.spaceList[0].Center();
-        //entrance.transform.position = (Vector2)divideSpace.spaceList[divideSpace.spaceList.Count - 1].Center();
+        entrance.transform.position = (Vector2)divideSpace.spaceList[0].Center();
 
 
     }

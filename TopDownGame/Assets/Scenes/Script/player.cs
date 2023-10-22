@@ -31,7 +31,7 @@ public class player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         animation = GetComponent<Animator>();
-        lefthandAnimator = transform.Find("LeftHand").GetComponent<Animator>();
+        lefthandAnimator = transform.Find("Sword").GetComponent<Animator>();
     }
     void Update()
     {
@@ -76,6 +76,8 @@ public class player : MonoBehaviour
             isEventing = false;
         }
     }
+    int countS=1;
+    static bool isSlash = false;
     private void Animations()
     {
 
@@ -108,10 +110,26 @@ public class player : MonoBehaviour
             animation.ResetTrigger("Jumping");
             isJumping = false;
         }
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl)&&!isSlash)
         {
-            lefthandAnimator.SetTrigger("Slash1");
+            StartCoroutine(AnimationDelay());
+            
         }
+
+        
+    }
+    private IEnumerator AnimationDelay()
+    {
+        isSlash = true;
+        lefthandAnimator.SetInteger("num", countS);
+        lefthandAnimator.SetTrigger("Slash");
+        countS++;
+        if (countS > 3)
+        {
+            countS = 1;
+        }
+        yield return new WaitForSeconds(1f);
+        isSlash = false;
     }
     private void FixedUpdate()
     {
